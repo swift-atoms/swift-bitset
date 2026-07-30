@@ -243,9 +243,22 @@ extension Bitset {
 
 extension Bitset: Equatable {
     /// Returns whether two bitsets contain the same members.
+    ///
+    /// Equality depends on membership only: storage capacity and growth
+    /// history do not participate.
     @inlinable
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.storage == rhs.storage && lhs.storedCapacity == rhs.storedCapacity
+        let common = Swift.min(lhs.storage.count, rhs.storage.count)
+        for index in 0..<common where lhs.storage[index] != rhs.storage[index] {
+            return false
+        }
+        for index in common..<lhs.storage.count where lhs.storage[index] != 0 {
+            return false
+        }
+        for index in common..<rhs.storage.count where rhs.storage[index] != 0 {
+            return false
+        }
+        return true
     }
 }
 
@@ -253,10 +266,18 @@ extension Bitset: Equatable {
 
 extension Bitset: Hashable {
     /// Feeds the bitset's members into the given hasher.
+    ///
+    /// Hashing depends on membership only, matching ``==(_:_:)``: trailing
+    /// all-zero storage words and the stored capacity do not participate.
     @inlinable
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(storage)
-        hasher.combine(storedCapacity)
+        var significant = storage.count
+        while significant > 0 && storage[significant - 1] == 0 {
+            significant -= 1
+        }
+        for index in 0..<significant {
+            hasher.combine(storage[index])
+        }
     }
 }
 

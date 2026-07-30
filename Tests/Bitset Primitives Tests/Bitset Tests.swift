@@ -362,6 +362,63 @@ extension Bitset {
             #expect(a == b)
         }
 
+        @Test
+        func `Equal membership with different capacities compares equal`() throws {
+            var a = try Bitset(capacity: 8)
+            var b = try Bitset(capacity: 1000)
+            try a.insert(1)
+            try a.insert(5)
+            try b.insert(1)
+            try b.insert(5)
+
+            #expect(a == b)
+            #expect(a.hashValue == b.hashValue)
+        }
+
+        @Test
+        func `Equal membership with different growth histories compares equal`() throws {
+            var a = Bitset()
+            try a.insert(3)
+            try a.insert(200)
+            try a.remove(200)
+
+            var b = Bitset()
+            try b.insert(3)
+
+            #expect(a.capacity != b.capacity)
+            #expect(a == b)
+            #expect(a.hashValue == b.hashValue)
+        }
+
+        @Test
+        func `Empty sets with different capacities compare equal`() throws {
+            var a = Bitset()
+            try a.insert(500)
+            try a.remove(500)
+
+            let b = Bitset()
+            let c = try Bitset(capacity: 64)
+
+            #expect(a == b)
+            #expect(a == c)
+            #expect(b == c)
+            #expect(a.hashValue == b.hashValue)
+            #expect(b.hashValue == c.hashValue)
+        }
+
+        @Test
+        func `Different membership beyond common storage compares unequal`() throws {
+            var a = Bitset()
+            try a.insert(1)
+
+            var b = Bitset()
+            try b.insert(1)
+            try b.insert(700)
+
+            #expect(a != b)
+            #expect(b != a)
+        }
+
         // MARK: - Description
 
         @Test
