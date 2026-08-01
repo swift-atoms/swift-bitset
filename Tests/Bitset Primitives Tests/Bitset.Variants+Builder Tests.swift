@@ -14,16 +14,21 @@ import Testing
 @testable import Bitset_Primitives
 
 @Suite struct `Bitset.Static Tests` {
-    @Test
-    func `Static within capacity`() throws {
-        let b = try Bitset.Static<2> {
-            1
-            5
-            10
+    @Suite struct Unit {
+        @Test
+        func `Static within capacity`() throws {
+            let b = try Bitset.Static<2> {
+                1
+                5
+                10
+            }
+            #expect(b.contains(5))
+            #expect(b.count == 3)
         }
-        #expect(b.contains(5))
-        #expect(b.count == 3)
     }
+
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
 }
 
 extension Bitset.Fixed {
