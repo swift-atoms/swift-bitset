@@ -158,7 +158,7 @@ extension Bitset {
     /// Removes all members, leaving the allocated capacity intact.
     @inlinable
     public mutating func removeAll() {
-        for i in 0..<storage.count {
+        (0..<storage.count).forEach { i in
             storage[i] = 0
         }
     }
@@ -249,16 +249,9 @@ extension Bitset: Equatable {
     @inlinable
     public static func == (lhs: Self, rhs: Self) -> Bool {
         let common = Swift.min(lhs.storage.count, rhs.storage.count)
-        for index in 0..<common where lhs.storage[index] != rhs.storage[index] {
-            return false
-        }
-        for index in common..<lhs.storage.count where lhs.storage[index] != 0 {
-            return false
-        }
-        for index in common..<rhs.storage.count where rhs.storage[index] != 0 {
-            return false
-        }
-        return true
+        return !zip(lhs.storage, rhs.storage).contains(where: { $0.0 != $0.1 })
+            && !lhs.storage.dropFirst(common).contains(where: { $0 != 0 })
+            && !rhs.storage.dropFirst(common).contains(where: { $0 != 0 })
     }
 }
 
@@ -275,8 +268,8 @@ extension Bitset: Hashable {
         while significant > 0 && storage[significant - 1] == 0 {
             significant -= 1
         }
-        for index in 0..<significant {
-            hasher.combine(storage[index])
+        storage.prefix(significant).forEach { word in
+            hasher.combine(word)
         }
     }
 }

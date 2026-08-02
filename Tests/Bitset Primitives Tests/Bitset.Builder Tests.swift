@@ -30,7 +30,7 @@ extension Bitset.Builder {
 extension Bitset.Builder.Test {
     fileprivate static func collected(_ bitset: Bitset) -> [Int] {
         var result: [Int] = []
-        for i in 0..<bitset.capacity {
+        (0..<bitset.capacity).forEach { i in
             if bitset.contains(i) {
                 result.append(i)
             }
@@ -146,9 +146,7 @@ extension Bitset.Builder.Test.Unit {
     @Test
     func `For loop produces sequence of members`() throws {
         let bitset = try Bitset {
-            for i in 0..<5 {
-                i * 2
-            }
+            (0..<5).map { $0 * 2 }
         }
         #expect(Bitset.Builder.Test.collected(bitset) == [0, 2, 4, 6, 8])
     }
@@ -183,9 +181,7 @@ extension Bitset.Builder.Test.`Edge Case` {
     @Test
     func `Many sequential members`() throws {
         let bitset = try Bitset {
-            for i in 0..<100 {
-                i
-            }
+            0..<100
         }
         #expect(bitset.count == 100)
     }

@@ -52,7 +52,7 @@ extension Bitset.Static {
     @inlinable
     public var count: Int {
         var total = 0
-        for i in 0..<wordCount {
+        (0..<wordCount).forEach { i in
             total += storage[i].nonzeroBitCount
         }
         return total
@@ -121,7 +121,7 @@ extension Bitset.Static {
     /// Removes all members, clearing every inline storage word.
     @inlinable
     public mutating func removeAll() {
-        for i in 0..<wordCount {
+        (0..<wordCount).forEach { i in
             storage[i] = 0
         }
     }
@@ -135,7 +135,7 @@ extension Bitset.Static {
     /// - Parameter body: A closure invoked once with each member of the set.
     @inlinable
     public func forEach(_ body: (Int) -> Void) {
-        for wordIndex in 0..<wordCount {
+        (0..<wordCount).forEach { wordIndex in
             var word = storage[wordIndex]
             while word != 0 {
                 let bitIndex = word.trailingZeroBitCount
@@ -166,7 +166,7 @@ extension Bitset.Static: Hashable {
     /// Feeds the set's members into the given hasher.
     @inlinable
     public func hash(into hasher: inout Hasher) {
-        for i in 0..<wordCount {
+        (0..<wordCount).forEach { i in
             hasher.combine(storage[i])
         }
     }

@@ -62,7 +62,7 @@ extension Bitset.Fixed.Algebra {
     public func union(_ other: Bitset.Fixed) -> Bitset.Fixed {
         precondition(capacity == other.capacity, "Capacities must match")
         var resultStorage = storage
-        for i in 0..<resultStorage.count {
+        (0..<resultStorage.count).forEach { i in
             resultStorage[i] |= other.storage[i]
         }
         return Bitset.Fixed(__storage: resultStorage, capacity: capacity)
@@ -77,7 +77,7 @@ extension Bitset.Fixed.Algebra {
     public func intersection(_ other: Bitset.Fixed) -> Bitset.Fixed {
         precondition(capacity == other.capacity, "Capacities must match")
         var resultStorage = storage
-        for i in 0..<resultStorage.count {
+        (0..<resultStorage.count).forEach { i in
             resultStorage[i] &= other.storage[i]
         }
         return Bitset.Fixed(__storage: resultStorage, capacity: capacity)
@@ -92,7 +92,7 @@ extension Bitset.Fixed.Algebra {
     public func subtract(_ other: Bitset.Fixed) -> Bitset.Fixed {
         precondition(capacity == other.capacity, "Capacities must match")
         var resultStorage = storage
-        for i in 0..<resultStorage.count {
+        (0..<resultStorage.count).forEach { i in
             resultStorage[i] &= ~other.storage[i]
         }
         return Bitset.Fixed(__storage: resultStorage, capacity: capacity)

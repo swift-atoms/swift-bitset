@@ -73,7 +73,7 @@ extension Bitset.Algebra {
 
             if newWordCount > oldWordCount {
                 resultStorage.reserveCapacity(newWordCount)
-                for _ in oldWordCount..<newWordCount {
+                (oldWordCount..<newWordCount).forEach { _ in
                     resultStorage.append(0)
                 }
             }
@@ -81,7 +81,7 @@ extension Bitset.Algebra {
         }
 
         let minWords = Swift.min(resultStorage.count, other.storage.count)
-        for i in 0..<minWords {
+        (0..<minWords).forEach { i in
             resultStorage[i] |= other.storage[i]
         }
 
@@ -98,10 +98,10 @@ extension Bitset.Algebra {
         var resultStorage = storage
 
         let minWords = Swift.min(resultStorage.count, other.storage.count)
-        for i in 0..<minWords {
+        (0..<minWords).forEach { i in
             resultStorage[i] &= other.storage[i]
         }
-        for i in minWords..<resultStorage.count {
+        (minWords..<resultStorage.count).forEach { i in
             resultStorage[i] = 0
         }
 
@@ -118,7 +118,7 @@ extension Bitset.Algebra {
         var resultStorage = storage
 
         let minWords = Swift.min(resultStorage.count, other.storage.count)
-        for i in 0..<minWords {
+        (0..<minWords).forEach { i in
             resultStorage[i] &= ~other.storage[i]
         }
 

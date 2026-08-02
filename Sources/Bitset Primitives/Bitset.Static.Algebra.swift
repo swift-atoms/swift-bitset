@@ -56,7 +56,7 @@ extension Bitset.Static.Algebra {
     @inlinable
     public func union(_ other: Bitset.Static<wordCount>) -> Bitset.Static<wordCount> {
         var resultStorage = storage
-        for i in 0..<wordCount {
+        (0..<wordCount).forEach { i in
             resultStorage[i] |= other.storage[i]
         }
         return Bitset.Static<wordCount>(__storage: resultStorage)
@@ -69,7 +69,7 @@ extension Bitset.Static.Algebra {
     @inlinable
     public func intersection(_ other: Bitset.Static<wordCount>) -> Bitset.Static<wordCount> {
         var resultStorage = storage
-        for i in 0..<wordCount {
+        (0..<wordCount).forEach { i in
             resultStorage[i] &= other.storage[i]
         }
         return Bitset.Static<wordCount>(__storage: resultStorage)
@@ -82,7 +82,7 @@ extension Bitset.Static.Algebra {
     @inlinable
     public func subtract(_ other: Bitset.Static<wordCount>) -> Bitset.Static<wordCount> {
         var resultStorage = storage
-        for i in 0..<wordCount {
+        (0..<wordCount).forEach { i in
             resultStorage[i] &= ~other.storage[i]
         }
         return Bitset.Static<wordCount>(__storage: resultStorage)

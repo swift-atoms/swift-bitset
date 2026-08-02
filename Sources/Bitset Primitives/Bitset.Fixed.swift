@@ -128,7 +128,7 @@ extension Bitset.Fixed {
     /// Removes all members, leaving the fixed capacity intact.
     @inlinable
     public mutating func removeAll() {
-        for i in 0..<storage.count {
+        (0..<storage.count).forEach { i in
             storage[i] = 0
         }
     }
