@@ -1,28 +1,3 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2026 Coen ten Thije Boonkkamp and the swift-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
-// MARK: - Bitset
-
-/// A set of non-negative integers using packed bit storage.
-///
-/// `Bitset` stores integer members as individual bits in word-sized storage,
-/// providing O(1) membership testing and efficient set algebra operations.
-/// Space usage is proportional to the maximum member stored, not the number
-/// of members.
-///
-/// ## Variants
-///
-/// - ``Bitset``: Dynamically-growing storage (this type)
-/// - ``Bitset/Fixed``: Fixed-capacity, throws on overflow
-/// - ``Bitset/Static``: Zero-allocation inline storage with compile-time capacity
 public struct Bitset: Sendable {
     @usableFromInline
     var storage: ContiguousArray<UInt>
@@ -30,17 +5,12 @@ public struct Bitset: Sendable {
     @usableFromInline
     var storedCapacity: Int
 
-    /// Creates an empty bitset with no reserved capacity.
     @inlinable
     public init() {
         self.storage = []
         self.storedCapacity = 0
     }
 
-    /// Creates a bitset with storage pre-allocated for members in `0..<capacity`.
-    ///
-    /// - Parameter capacity: The number of member slots to reserve; must be non-negative.
-    /// - Throws: `Bitset.Error.invalidCapacity` when `capacity` is negative.
     @inlinable
     public init(capacity: Int) throws(__BitsetError) {
         guard capacity >= 0 else {
@@ -51,7 +21,6 @@ public struct Bitset: Sendable {
         self.storedCapacity = capacity
     }
 
-    /// Internal initializer for constructing from storage.
     @usableFromInline
     init(__storage: ContiguousArray<UInt>, capacity: Int) {
         self.storage = __storage
@@ -60,19 +29,16 @@ public struct Bitset: Sendable {
 }
 
 extension Bitset {
-    /// The number of bits in a single storage word.
+
     @inlinable
     public static var bitsPerWord: Int { UInt.bitWidth }
 }
 
-// MARK: - Properties
-
 extension Bitset {
-    /// The number of member slots currently allocated.
+
     @inlinable
     public var capacity: Int { storedCapacity }
 
-    /// The number of members in the set.
     @inlinable
     public var count: Int {
         var total = 0
@@ -82,7 +48,6 @@ extension Bitset {
         return total
     }
 
-    /// A Boolean value indicating whether the set contains no members.
     @inlinable
     public var isEmpty: Bool {
         for word in storage {
@@ -95,10 +60,8 @@ extension Bitset {
     var wordCount: Int { storage.count }
 }
 
-// MARK: - Membership
-
 extension Bitset {
-    /// Returns whether the set contains the given member.
+
     @inlinable
     public func contains(_ member: Int) -> Bool {
         guard member >= 0 && member < capacity else { return false }
@@ -109,14 +72,8 @@ extension Bitset {
     }
 }
 
-// MARK: - Mutation
-
 extension Bitset {
-    /// Inserts a member into the set, growing storage as needed.
-    ///
-    /// - Parameter member: The non-negative integer to insert.
-    /// - Returns: `true` if the member was newly inserted; `false` if it was already present.
-    /// - Throws: `Bitset.Error.bounds` when `member` is negative.
+
     @inlinable
     @discardableResult
     public mutating func insert(_ member: Int) throws(__BitsetError) -> Bool {
@@ -136,11 +93,6 @@ extension Bitset {
         return !wasSet
     }
 
-    /// Removes a member from the set.
-    ///
-    /// - Parameter member: The integer to remove.
-    /// - Returns: `true` if the member was present and removed; `false` otherwise.
-    /// - Throws: `Bitset.Error.bounds` when `member` is out of range.
     @inlinable
     @discardableResult
     public mutating func remove(_ member: Int) throws(__BitsetError) -> Bool {
@@ -155,7 +107,6 @@ extension Bitset {
         return wasSet
     }
 
-    /// Removes all members, leaving the allocated capacity intact.
     @inlinable
     public mutating func removeAll() {
         (0..<storage.count).forEach { i in
@@ -179,12 +130,8 @@ extension Bitset {
     }
 }
 
-// MARK: - Additional Properties
-
 extension Bitset {
-    /// The smallest member in the set, or `nil` if empty.
-    ///
-    /// - Complexity: O(n/w) where w is word bit width
+
     @inlinable
     public var min: Int? {
         for wordIndex in storage.indices {
@@ -198,9 +145,6 @@ extension Bitset {
         return nil
     }
 
-    /// The largest member in the set, or `nil` if empty.
-    ///
-    /// - Complexity: O(n/w) where w is word bit width
     @inlinable
     public var max: Int? {
         for wordIndex in storage.indices.reversed() {
@@ -214,22 +158,14 @@ extension Bitset {
         return nil
     }
 
-    /// Removes all members from the set.
-    ///
-    /// This is an alias for ``removeAll()``.
     @inlinable
     public mutating func clear() {
         removeAll()
     }
 }
 
-// MARK: - Additional Initializers
-
 extension Bitset {
-    /// Creates a bitset from a sequence of integers.
-    ///
-    /// - Parameter members: The members to include.
-    /// - Throws: `Bitset.Error.bounds` when a member is negative.
+
     @inlinable
     public init<S: Swift.Sequence>(_ members: S) throws(__BitsetError) where S.Element == Int {
         self.init()
@@ -239,13 +175,8 @@ extension Bitset {
     }
 }
 
-// MARK: - Equatable
-
 extension Bitset: Equatable {
-    /// Returns whether two bitsets contain the same members.
-    ///
-    /// Equality depends on membership only: storage capacity and growth
-    /// history do not participate.
+
     @inlinable
     public static func == (lhs: Self, rhs: Self) -> Bool {
         let common = Swift.min(lhs.storage.count, rhs.storage.count)
@@ -255,13 +186,8 @@ extension Bitset: Equatable {
     }
 }
 
-// MARK: - Hashable
-
 extension Bitset: Hashable {
-    /// Feeds the bitset's members into the given hasher.
-    ///
-    /// Hashing depends on membership only, matching ``==(_:_:)``: trailing
-    /// all-zero storage words and the stored capacity do not participate.
+
     @inlinable
     public func hash(into hasher: inout Hasher) {
         var significant = storage.count
@@ -274,10 +200,8 @@ extension Bitset: Hashable {
     }
 }
 
-// MARK: - CustomStringConvertible
-
 extension Bitset: CustomStringConvertible {
-    /// A textual representation listing up to the first ten members.
+
     public var description: String {
         let elements = Array(self.prefix(10))
         let suffix = count > 10 ? ", ..." : ""

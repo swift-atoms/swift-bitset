@@ -1,19 +1,6 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2026 Coen ten Thije Boonkkamp and the swift-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Testing
 
 @testable import Bitset_Primitives
-
-// MARK: - Test Suite Structure
 
 extension Bitset.Builder {
     @Suite("Bitset.Builder")
@@ -24,8 +11,6 @@ extension Bitset.Builder {
         @Suite struct `Static Methods` {}
     }
 }
-
-// MARK: - Helpers
 
 extension Bitset.Builder.Test {
     fileprivate static func collected(_ bitset: Bitset) -> [Int] {
@@ -38,8 +23,6 @@ extension Bitset.Builder.Test {
         return result
     }
 }
-
-// MARK: - Unit Tests
 
 extension Bitset.Builder.Test.Unit {
 
@@ -113,8 +96,6 @@ extension Bitset.Builder.Test.Unit {
     }
 }
 
-// MARK: - Control Flow
-
 extension Bitset.Builder.Test.Unit {
 
     @Test
@@ -162,8 +143,6 @@ extension Bitset.Builder.Test.Unit {
     }
 }
 
-// MARK: - Edge Cases
-
 extension Bitset.Builder.Test.`Edge Case` {
 
     @Test
@@ -210,8 +189,6 @@ extension Bitset.Builder.Test.`Edge Case` {
     }
 }
 
-// MARK: - Integration
-
 extension Bitset.Builder.Test.Integration {
 
     @Test
@@ -237,8 +214,6 @@ extension Bitset.Builder.Test.Integration {
         #expect(!primes.contains(8))
     }
 }
-
-// MARK: - Static Method Tests
 
 extension Bitset.Builder.Test.`Static Methods` {
 

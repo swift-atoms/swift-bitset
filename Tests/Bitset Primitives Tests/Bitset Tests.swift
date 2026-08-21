@@ -1,14 +1,3 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2026 Coen ten Thije Boonkkamp and the swift-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Testing
 
 @testable import Bitset_Primitives
@@ -16,8 +5,6 @@ import Testing
 extension Bitset {
     @Suite("Bitset")
     struct Test {
-
-        // MARK: - Basic Operations
 
         @Test
         func `Insert and contains`() throws {
@@ -70,8 +57,6 @@ extension Bitset {
             #expect(set.count == 0)
         }
 
-        // MARK: - Word Boundaries
-
         @Test
         func `Word boundary: 63 and 64`() throws {
             var set = Bitset()
@@ -108,8 +93,6 @@ extension Bitset {
             #expect(set.contains(100000))
             #expect(set.count == 3)
         }
-
-        // MARK: - Properties
 
         @Test
         func `Count`() throws {
@@ -173,8 +156,6 @@ extension Bitset {
             #expect(set.isEmpty)
         }
 
-        // MARK: - Initialization
-
         @Test
         func `Init from sequence`() throws {
             let set = try Bitset([1, 2, 3, 64, 65, 66])
@@ -193,8 +174,6 @@ extension Bitset {
             let set = try Bitset([1, 2, 1, 3, 2, 1])
             #expect(set.count == 3)
         }
-
-        // MARK: - Iteration
 
         @Test
         func `Iteration order`() throws {
@@ -222,8 +201,6 @@ extension Bitset {
             let expected = [0, 63, 64, 127, 128]
             #expect(elements == expected)
         }
-
-        // MARK: - Set Algebra
 
         @Test
         func `Union`() throws {
@@ -309,8 +286,6 @@ extension Bitset {
             #expect(a.contains(5))
         }
 
-        // MARK: - Predicates
-
         @Test
         func `isSubset`() throws {
             let small = try Bitset([1, 2, 3])
@@ -342,8 +317,6 @@ extension Bitset {
             #expect(a.relation.isDisjoint(with: b))
             #expect(!a.relation.isDisjoint(with: c))
         }
-
-        // MARK: - Equality
 
         @Test
         func `Equality`() throws {
@@ -418,8 +391,6 @@ extension Bitset {
             #expect(a != b)
             #expect(b != a)
         }
-
-        // MARK: - Description
 
         @Test
         func `Description`() throws {
