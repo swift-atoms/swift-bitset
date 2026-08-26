@@ -1,4 +1,4 @@
-# Bitset Primitives
+# Bitset
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -11,7 +11,7 @@ Packed-bit set types for non-negative integers — a growable `Bitset`, a fixed-
 A `Bitset` stores integer members as individual bits in word-sized storage: O(1) membership testing, popcount-based `count`, and word-parallel set algebra. Space tracks the largest member stored, not the member count. Build one declaratively with the result builder, then ask it questions:
 
 ```swift
-import Bitset_Primitives
+import Bitset
 
 // Declare a set of small non-negative integers.
 let primes = Bitset {
@@ -41,7 +41,7 @@ for member in union { print(member) }
 When capacity is known ahead of time, the bounded variants trade growth for predictable storage and an explicit overflow error:
 
 ```swift
-import Bitset_Primitives
+import Bitset
 
 // Heap-allocated, fixed capacity — throws on overflow instead of growing.
 var fixed = try Bitset.Fixed(capacity: 128)
@@ -61,7 +61,7 @@ inline.contains(100)              // true
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-bitset-primitives.git", branch: "main")
+    .package(url: "https://github.com/swift-molecules/swift-bitset.git", branch: "main")
 ]
 ```
 
@@ -69,7 +69,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Bitset Primitives", package: "swift-bitset-primitives"),
+        .product(name: "Bitset", package: "swift-bitset"),
     ]
 )
 ```
@@ -82,8 +82,8 @@ Two library products. The core library depends only on the `Iterator.Protocol` p
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Bitset Primitives` | `Sources/Bitset Primitives/` | The `Bitset` namespace: the growable `Bitset`, the bounded `Bitset.Fixed`, and the inline `Bitset.Static`; the `.algebra` accessor (`union`, `intersection`, `subtract`, `symmetric.difference`); the `.relation` accessor (`isSubset(of:)`, `isSuperset(of:)`, `isDisjoint(with:)`); the `Bitset.Builder` result builder; and `Sequence`, `Equatable`, `Hashable`, and `CustomStringConvertible` conformances. |
-| `Bitset Primitives Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
+| `Bitset` | `Sources/Bitset/` | The `Bitset` namespace: the growable `Bitset`, the bounded `Bitset.Fixed`, and the inline `Bitset.Static`; the `.algebra` accessor (`union`, `intersection`, `subtract`, `symmetric.difference`); the `.relation` accessor (`isSubset(of:)`, `isSuperset(of:)`, `isDisjoint(with:)`); the `Bitset.Builder` result builder; and `Sequence`, `Equatable`, `Hashable`, and `CustomStringConvertible` conformances. |
+| `Bitset Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
 
 Foundation-free.
 

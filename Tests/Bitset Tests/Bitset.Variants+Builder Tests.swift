@@ -1,6 +1,6 @@
 import Testing
 
-@testable import Bitset_Primitives
+@testable import Bitset
 
 @Suite struct `Bitset.Static Tests` {
     @Suite struct Unit {
