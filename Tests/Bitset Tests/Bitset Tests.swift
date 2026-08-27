@@ -1,6 +1,7 @@
 import Testing
 
 @testable import Bitset
+import Bitset_Standard_Library_Integration
 
 extension Bitset {
     @Suite("Bitset")

@@ -1,6 +1,6 @@
 public struct Bitset: Sendable {
     @usableFromInline
-    var storage: ContiguousArray<UInt>
+    package var storage: ContiguousArray<UInt>
 
     @usableFromInline
     var storedCapacity: Int
@@ -203,7 +203,19 @@ extension Bitset: Hashable {
 extension Bitset: CustomStringConvertible {
 
     public var description: String {
-        let elements = Array(self.prefix(10))
+        var elements: [Int] = []
+        outer: for (wordIndex, word) in storage.enumerated() {
+            var word = word
+            while word != 0 {
+                let bitIndex = word.trailingZeroBitCount
+                let globalIndex = wordIndex * Self.bitsPerWord + bitIndex
+                if globalIndex < capacity {
+                    elements.append(globalIndex)
+                    if elements.count == 10 { break outer }
+                }
+                word &= word - 1
+            }
+        }
         let suffix = count > 10 ? ", ..." : ""
         return "Bitset({\(elements.map(String.init).joined(separator: ", "))\(suffix)})"
     }

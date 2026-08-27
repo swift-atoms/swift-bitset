@@ -44,7 +44,10 @@ let package = Package(
         ),
         .testTarget(
             name: "Bitset Tests",
-            dependencies: ["Bitset"]
+            dependencies: [
+                "Bitset",
+                "Bitset Standard Library Integration",
+            ]
         ),
     ],
     swiftLanguageModes: [.v6]
