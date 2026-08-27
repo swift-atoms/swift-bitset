@@ -17,44 +17,34 @@ let package = Package(
             targets: ["Bitset"]
         ),
         .library(
-            name: "Bitset Test Support",
-            targets: ["Bitset Test Support"]
+            name: "Bitset Standard Library Integration",
+            targets: ["Bitset Standard Library Integration"]
+        ),
+        .library(
+            name: "Bitset Apple Foundation Integration",
+            targets: ["Bitset Apple Foundation Integration"]
         ),
     ],
-    dependencies: [
-        .package(
-            url: "https://github.com/swift-molecules/swift-sequence.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-iterator.git",
-            branch: "main"
-        ),
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "Bitset",
-            dependencies: [
-                .product(name: "Iterator Protocol", package: "swift-iterator")
-            ]
+            dependencies: []
         ),
         .target(
-            name: "Bitset Test Support",
+            name: "Bitset Standard Library Integration",
+            dependencies: ["Bitset"]
+        ),
+        .target(
+            name: "Bitset Apple Foundation Integration",
             dependencies: [
                 "Bitset",
-                .product(
-                    name: "Sequence Test Support",
-                    package: "swift-sequence"
-                ),
-            ],
-            path: "Tests/Support"
+                "Bitset Standard Library Integration",
+            ]
         ),
         .testTarget(
             name: "Bitset Tests",
-            dependencies: [
-                "Bitset",
-                "Bitset Test Support",
-            ]
+            dependencies: ["Bitset"]
         ),
     ],
     swiftLanguageModes: [.v6]
