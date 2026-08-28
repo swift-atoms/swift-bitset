@@ -23,11 +23,11 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-sequence.git",
+            url: "https://github.com/swift-atoms/swift-sequence.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-iterator.git",
+            url: "https://github.com/swift-atoms/swift-iterator.git",
             branch: "main"
         ),
     ],
@@ -41,7 +41,7 @@ let package = Package(
         .target(
             name: "Bitset Test Support",
             dependencies: [
-                "Bitset",
+                .target(name: "Bitset"),
                 .product(
                     name: "Sequence Test Support",
                     package: "swift-sequence"
@@ -52,8 +52,8 @@ let package = Package(
         .testTarget(
             name: "Bitset Tests",
             dependencies: [
-                "Bitset",
-                "Bitset Test Support",
+                .target(name: "Bitset"),
+                .target(name: "Bitset Test Support"),
             ]
         ),
     ],

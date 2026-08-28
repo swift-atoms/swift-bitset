@@ -1,4 +1,4 @@
-# Bitset
+# Bitset Primitives
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -61,7 +61,7 @@ inline.contains(100)              // true
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-molecules/swift-bitset.git", branch: "main")
+    .package(url: "https://github.com/swift-atoms/swift-bitset.git", branch: "main")
 ]
 ```
 
@@ -78,11 +78,11 @@ dependencies: [
 
 ## Architecture
 
-Two library products. The core library depends only on the `Iterator.Protocol` primitive.
+Two library products. The library depends only on the `Iterator.Protocol` primitive.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Bitset` | `Sources/Bitset/` | The `Bitset` namespace: the growable `Bitset`, the bounded `Bitset.Fixed`, and the inline `Bitset.Static`; the `.algebra` accessor (`union`, `intersection`, `subtract`, `symmetric.difference`); the `.relation` accessor (`isSubset(of:)`, `isSuperset(of:)`, `isDisjoint(with:)`); the `Bitset.Builder` result builder; and `Sequence`, `Equatable`, `Hashable`, and `CustomStringConvertible` conformances. |
+| `Bitset Primitives` | `Sources/Bitset Primitives/` | The `Bitset` namespace: the growable `Bitset`, the bounded `Bitset.Fixed`, and the inline `Bitset.Static`; the `.algebra` accessor (`union`, `intersection`, `subtract`, `symmetric.difference`); the `.relation` accessor (`isSubset(of:)`, `isSuperset(of:)`, `isDisjoint(with:)`); the `Bitset.Builder` result builder; and `Sequence`, `Equatable`, `Hashable`, and `CustomStringConvertible` conformances. |
 | `Bitset Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
 
 Foundation-free.
