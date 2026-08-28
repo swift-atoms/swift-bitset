@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-bitset-primitives",
+    name: "swift-bitset",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,47 +13,47 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Bitset Primitives",
-            targets: ["Bitset Primitives"]
+            name: "Bitset",
+            targets: ["Bitset"]
         ),
         .library(
-            name: "Bitset Primitives Test Support",
-            targets: ["Bitset Primitives Test Support"]
+            name: "Bitset Test Support",
+            targets: ["Bitset Test Support"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-sequence-primitives.git",
+            url: "https://github.com/swift-atoms/swift-sequence.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-iterator-primitives.git",
+            url: "https://github.com/swift-atoms/swift-iterator.git",
             branch: "main"
         ),
     ],
     targets: [
         .target(
-            name: "Bitset Primitives",
+            name: "Bitset",
             dependencies: [
-                .product(name: "Iterator Protocol", package: "swift-iterator-primitives")
+                .product(name: "Iterator Protocol", package: "swift-iterator")
             ]
         ),
         .target(
-            name: "Bitset Primitives Test Support",
+            name: "Bitset Test Support",
             dependencies: [
-                "Bitset Primitives",
+                .target(name: "Bitset"),
                 .product(
-                    name: "Sequence Primitives Test Support",
-                    package: "swift-sequence-primitives"
+                    name: "Sequence Test Support",
+                    package: "swift-sequence"
                 ),
             ],
             path: "Tests/Support"
         ),
         .testTarget(
-            name: "Bitset Primitives Tests",
+            name: "Bitset Tests",
             dependencies: [
-                "Bitset Primitives",
-                "Bitset Primitives Test Support",
+                .target(name: "Bitset"),
+                .target(name: "Bitset Test Support"),
             ]
         ),
     ],

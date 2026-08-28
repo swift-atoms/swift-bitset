@@ -1,6 +1,6 @@
 import Testing
 
-@testable import Bitset_Primitives
+@testable import Bitset
 
 extension Bitset.Builder {
     @Suite("Bitset.Builder")
