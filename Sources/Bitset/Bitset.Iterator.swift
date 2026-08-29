@@ -2,7 +2,7 @@ public import Iterator_Protocol
 
 extension Bitset: Swift.Sequence {
 
-    public struct Iterator: Iterator.Iterator.`Protocol`, IteratorProtocol, Sendable {
+    public struct Iterator: Iterator::Iterator.`Protocol`, IteratorProtocol, Sendable {
         @usableFromInline
         let storage: ContiguousArray<UInt>
 
