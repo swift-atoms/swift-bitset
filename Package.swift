@@ -12,14 +12,10 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        .library(
-            name: "Bitset",
-            targets: ["Bitset"]
-        ),
-        .library(
-            name: "Bitset Test Support",
-            targets: ["Bitset Test Support"]
-        ),
+        .library(name: "Bitset", targets: ["Bitset"]),
+        .library(name: "Bitset Standard Library Integration", targets: ["Bitset Standard Library Integration"]),
+        .library(name: "Bitset Foundation Library Integration", targets: ["Bitset Foundation Library Integration"]),
+        .library(name: "Bitset Test Support", targets: ["Bitset Test Support"]),
     ],
     dependencies: [
         .package(
@@ -35,17 +31,30 @@ let package = Package(
         .target(
             name: "Bitset",
             dependencies: [
-                .product(name: "Iterator Protocol", package: "swift-iterator")
-            ]
+                .product(name: "Iterator", package: "swift-iterator"),
+            ],
+            path: "Sources/Bitset"
+        ),
+        .target(
+            name: "Bitset Standard Library Integration",
+            dependencies: [
+                .target(name: "Bitset"),
+            ],
+            path: "Sources/Bitset Standard Library Integration"
+        ),
+        .target(
+            name: "Bitset Foundation Library Integration",
+            dependencies: [
+                .target(name: "Bitset"),
+                .target(name: "Bitset Standard Library Integration"),
+            ],
+            path: "Sources/Bitset Foundation Library Integration"
         ),
         .target(
             name: "Bitset Test Support",
             dependencies: [
                 .target(name: "Bitset"),
-                .product(
-                    name: "Sequence Test Support",
-                    package: "swift-sequence"
-                ),
+                .product(name: "Sequence Test Support", package: "swift-sequence"),
             ],
             path: "Tests/Support"
         ),
@@ -54,14 +63,17 @@ let package = Package(
             dependencies: [
                 .target(name: "Bitset"),
                 .target(name: "Bitset Test Support"),
-            ]
+                .target(name: "Bitset Standard Library Integration"),
+                .target(name: "Bitset Foundation Library Integration"),
+            ],
+            path: "Tests/Bitset Tests"
         ),
     ],
     swiftLanguageModes: [.v6]
 )
 
-for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    let ecosystem: [SwiftSetting] = [
+for target in package.targets {
+    target.swiftSettings = [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("InternalImportsByDefault"),
@@ -70,8 +82,4 @@ for target in package.targets where ![.system, .binary, .plugin, .macro].contain
         .enableExperimentalFeature("Lifetimes"),
         .enableUpcomingFeature("InferIsolatedConformances"),
     ]
-
-    let package: [SwiftSetting] = []
-
-    target.swiftSettings = (target.swiftSettings ?? []) + ecosystem + package
 }

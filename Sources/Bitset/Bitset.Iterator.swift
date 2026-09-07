@@ -1,4 +1,4 @@
-public import Iterator_Protocol
+public import Iterator
 
 extension Bitset: Swift.Sequence {
 
