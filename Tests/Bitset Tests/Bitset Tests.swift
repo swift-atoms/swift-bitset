@@ -4,7 +4,7 @@ import Testing
 
 extension Bitset {
     @Suite
-    struct `Behavior contracts` {
+    struct `Bitsets preserve membership through mutation iteration and set operations` {
 
         @Test
         func `inserted members are present`() throws {

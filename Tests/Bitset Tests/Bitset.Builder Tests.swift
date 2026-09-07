@@ -4,15 +4,15 @@ import Testing
 
 extension Bitset.Builder {
     @Suite
-    struct `Behavior contracts` {
-        @Suite struct `Unit behavior` {}
-        @Suite struct `Edge Case` {}
-        @Suite struct `Integration behavior` {}
-        @Suite struct `Static Methods` {}
+    struct `Bitset builders combine expressions into distinct members` {
+        @Suite struct `Bitset builders preserve optional conditional and repeated expressions` {}
+        @Suite struct `Bitset builders preserve long and nested membership expressions` {}
+        @Suite struct `Built bitsets support subsequent mutation and membership queries` {}
+        @Suite struct `Bitset builder components preserve their contributed members` {}
     }
 }
 
-extension Bitset.Builder.`Behavior contracts` {
+extension Bitset.Builder.`Bitset builders combine expressions into distinct members` {
     fileprivate static func collected(_ bitset: Bitset) -> [Int] {
         var result: [Int] = []
         (0..<bitset.capacity).forEach { i in
@@ -24,7 +24,7 @@ extension Bitset.Builder.`Behavior contracts` {
     }
 }
 
-extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
+extension Bitset.Builder.`Bitset builders combine expressions into distinct members`.`Bitset builders preserve optional conditional and repeated expressions` {
 
     @Test
     func `builders accept one member`() throws {
@@ -40,7 +40,7 @@ extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
             5
             10
         }
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [1, 5, 10])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [1, 5, 10])
     }
 
     @Test
@@ -52,7 +52,7 @@ extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
             5
             5
         }
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [1, 5])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [1, 5])
         #expect(bitset.count == 2)
     }
 
@@ -80,7 +80,7 @@ extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
             none
             10
         }
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [1, 7, 10])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [1, 7, 10])
     }
 
     @Test
@@ -96,7 +96,7 @@ extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
     }
 }
 
-extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
+extension Bitset.Builder.`Bitset builders combine expressions into distinct members`.`Bitset builders preserve optional conditional and repeated expressions` {
 
     @Test
     func `builders include members from true branches`() throws {
@@ -108,7 +108,7 @@ extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
             }
             10
         }
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [1, 5, 10])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [1, 5, 10])
     }
 
     @Test
@@ -121,7 +121,7 @@ extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
             }
             10
         }
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [1, 10])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [1, 10])
     }
 
     @Test
@@ -129,7 +129,7 @@ extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
         let bitset = try Bitset {
             (0..<5).map { $0 * 2 }
         }
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [0, 2, 4, 6, 8])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [0, 2, 4, 6, 8])
     }
 
     @Test
@@ -139,11 +139,11 @@ extension Bitset.Builder.`Behavior contracts`.`Unit behavior` {
                 i
             }
         }
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [0, 3, 6, 9])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [0, 3, 6, 9])
     }
 }
 
-extension Bitset.Builder.`Behavior contracts`.`Edge Case` {
+extension Bitset.Builder.`Bitset builders combine expressions into distinct members`.`Bitset builders preserve long and nested membership expressions` {
 
     @Test
     func `builders span multiple storage words`() throws {
@@ -153,7 +153,7 @@ extension Bitset.Builder.`Behavior contracts`.`Edge Case` {
             128
             256
         }
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [0, 64, 128, 256])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [0, 64, 128, 256])
         #expect(bitset.count == 4)
     }
 
@@ -185,11 +185,11 @@ extension Bitset.Builder.`Behavior contracts`.`Edge Case` {
             }
             99
         }
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [0, 1, 3, 4, 99])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [0, 1, 3, 4, 99])
     }
 }
 
-extension Bitset.Builder.`Behavior contracts`.`Integration behavior` {
+extension Bitset.Builder.`Bitset builders combine expressions into distinct members`.`Built bitsets support subsequent mutation and membership queries` {
 
     @Test
     func `built sets accept subsequent insertions`() throws {
@@ -198,7 +198,7 @@ extension Bitset.Builder.`Behavior contracts`.`Integration behavior` {
             2
         }
         try bitset.insert(3)
-        #expect(Bitset.Builder.`Behavior contracts`.collected(bitset) == [1, 2, 3])
+        #expect(Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(bitset) == [1, 2, 3])
     }
 
     @Test
@@ -215,7 +215,7 @@ extension Bitset.Builder.`Behavior contracts`.`Integration behavior` {
     }
 }
 
-extension Bitset.Builder.`Behavior contracts`.`Static Methods` {
+extension Bitset.Builder.`Bitset builders combine expressions into distinct members`.`Bitset builder components preserve their contributed members` {
 
     @Test
     func `single builder expressions preserve their member`() {
