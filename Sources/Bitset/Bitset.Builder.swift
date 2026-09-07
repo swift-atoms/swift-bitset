@@ -81,7 +81,7 @@ extension Bitset {
 extension Bitset {
 
     @inlinable
-    public init(@Bitset.Builder _ builder: () -> [Int]) throws(__BitsetError) {
+    public init(@Bitset.Builder _ builder: () -> [Int]) throws(Bitset.Error) {
         try self.init(builder())
     }
 }

@@ -32,7 +32,7 @@ extension Bitset.Algebra.Symmetric {
 
         if other.storedCapacity > capacity {
             let newCapacity = other.storedCapacity
-            let newWordCount = (newCapacity + Self.bitsPerWord - 1) / Self.bitsPerWord
+            let newWordCount = other.storage.count
             let oldWordCount = resultStorage.count
 
             if newWordCount > oldWordCount {

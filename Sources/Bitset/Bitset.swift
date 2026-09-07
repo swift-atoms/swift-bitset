@@ -12,11 +12,11 @@ public struct Bitset: Sendable {
     }
 
     @inlinable
-    public init(capacity: Int) throws(__BitsetError) {
+    public init(capacity: Int) throws(Bitset.Error) {
         guard capacity >= 0 else {
             throw .invalidCapacity(.init())
         }
-        let wordCount = (capacity + Self.bitsPerWord - 1) / Self.bitsPerWord
+        let wordCount = Self.storageWordCount(for: capacity)
         self.storage = ContiguousArray(repeating: 0, count: wordCount)
         self.storedCapacity = capacity
     }
@@ -32,6 +32,19 @@ extension Bitset {
 
     @inlinable
     public static var bitsPerWord: Int { UInt.bitWidth }
+
+    @usableFromInline
+    static func storageWordCount(for capacity: Int) -> Int {
+        precondition(capacity >= 0, "Capacity must be nonnegative")
+        return capacity / bitsPerWord + (capacity % bitsPerWord == 0 ? 0 : 1)
+    }
+
+    @usableFromInline
+    static func bitCapacity(forWordCount wordCount: Int) -> Int? {
+        guard wordCount >= 0 else { return nil }
+        let (capacity, overflow) = wordCount.multipliedReportingOverflow(by: bitsPerWord)
+        return overflow ? nil : capacity
+    }
 }
 
 extension Bitset {
@@ -76,8 +89,8 @@ extension Bitset {
 
     @inlinable
     @discardableResult
-    public mutating func insert(_ member: Int) throws(__BitsetError) -> Bool {
-        guard member >= 0 else {
+    public mutating func insert(_ member: Int) throws(Bitset.Error) -> Bool {
+        guard member >= 0 && member < Int.max else {
             throw .bounds(.init(member: member, capacity: capacity))
         }
 
@@ -95,7 +108,7 @@ extension Bitset {
 
     @inlinable
     @discardableResult
-    public mutating func remove(_ member: Int) throws(__BitsetError) -> Bool {
+    public mutating func remove(_ member: Int) throws(Bitset.Error) -> Bool {
         guard member >= 0 && member < capacity else {
             throw .bounds(.init(member: member, capacity: capacity))
         }
@@ -117,7 +130,7 @@ extension Bitset {
     @usableFromInline
     mutating func grow(toInclude member: Int) {
         let newCapacity = member + 1
-        let newWordCount = (newCapacity + Self.bitsPerWord - 1) / Self.bitsPerWord
+        let newWordCount = Self.storageWordCount(for: newCapacity)
         let oldWordCount = storage.count
 
         if newWordCount > oldWordCount {
@@ -167,7 +180,7 @@ extension Bitset {
 extension Bitset {
 
     @inlinable
-    public init<S: Swift.Sequence>(_ members: S) throws(__BitsetError) where S.Element == Int {
+    public init<S: Swift.Sequence>(_ members: S) throws(Bitset.Error) where S.Element == Int {
         self.init()
         for member in members {
             try insert(member)

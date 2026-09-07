@@ -1,13 +1,15 @@
-public enum __BitsetFixedError: Swift.Error, Sendable, Equatable {
+extension Bitset.Fixed {
+    public enum Error: Swift.Error, Sendable, Equatable {
 
-    case bounds(Bounds)
+        case bounds(Bounds)
 
-    case invalidCapacity(InvalidCapacity)
+        case invalidCapacity(InvalidCapacity)
 
-    case overflow(Overflow)
+        case overflow(Overflow)
+    }
 }
 
-extension __BitsetFixedError {
+extension Bitset.Fixed.Error {
 
     public struct Bounds: Sendable, Equatable {
 
@@ -33,9 +35,4 @@ extension __BitsetFixedError {
         @inlinable
         public init() {}
     }
-}
-
-extension Bitset.Fixed {
-
-    public typealias Error = __BitsetFixedError
 }

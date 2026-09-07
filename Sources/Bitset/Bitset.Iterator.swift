@@ -4,6 +4,7 @@ extension Bitset.Iterator {
 
     @inlinable
     public mutating func next() -> Int? {
+        guard wordIndex < storage.count else { return nil }
         while currentWord == 0 {
             wordIndex += 1
             guard wordIndex < storage.count else { return nil }

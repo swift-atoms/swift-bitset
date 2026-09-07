@@ -3,11 +3,11 @@ import Testing
 @testable import Bitset
 
 extension Bitset {
-    @Suite("Bitset")
-    struct Test {
+    @Suite
+    struct `Behavior contracts` {
 
         @Test
-        func `Insert and contains`() throws {
+        func `inserted members are present`() throws {
             var set = Bitset()
 
             #expect(try set.insert(0) == true)
@@ -28,7 +28,7 @@ extension Bitset {
         }
 
         @Test
-        func `Insert returns false for existing`() throws {
+        func `inserting an existing member reports no change`() throws {
             var set = Bitset()
 
             #expect(try set.insert(42) == true)
@@ -36,7 +36,7 @@ extension Bitset {
         }
 
         @Test
-        func `Remove`() throws {
+        func `removal clears an existing member`() throws {
             var set = Bitset()
             try set.insert(10)
             try set.insert(20)
@@ -51,14 +51,14 @@ extension Bitset {
         }
 
         @Test
-        func `Empty set`() {
+        func `fresh sets contain no members`() {
             let set = Bitset()
             #expect(set.isEmpty)
             #expect(set.count == 0)
         }
 
         @Test
-        func `Word boundary: 63 and 64`() throws {
+        func `adjacent members remain distinct across the first word boundary`() throws {
             var set = Bitset()
             try set.insert(63)
             try set.insert(64)
@@ -70,7 +70,7 @@ extension Bitset {
         }
 
         @Test
-        func `Word boundary: 127 and 128`() throws {
+        func `adjacent members remain distinct across the second word boundary`() throws {
             var set = Bitset()
             try set.insert(127)
             try set.insert(128)
@@ -82,7 +82,7 @@ extension Bitset {
         }
 
         @Test
-        func `Large members`() throws {
+        func `inserting distant members grows storage`() throws {
             var set = Bitset()
             try set.insert(1000)
             try set.insert(10000)
@@ -95,7 +95,7 @@ extension Bitset {
         }
 
         @Test
-        func `Count`() throws {
+        func `count reports distinct members`() throws {
             var set = Bitset()
             #expect(set.isEmpty)
 
@@ -113,7 +113,7 @@ extension Bitset {
         }
 
         @Test
-        func `isEmpty`() throws {
+        func `emptiness follows membership changes`() throws {
             var set = Bitset()
             #expect(set.isEmpty)
 
@@ -125,7 +125,7 @@ extension Bitset {
         }
 
         @Test
-        func `Min and max`() throws {
+        func `extrema report the lowest and highest members`() throws {
             var set = Bitset()
             #expect(set.min == nil)
             #expect(set.max == nil)
@@ -146,7 +146,7 @@ extension Bitset {
         }
 
         @Test
-        func `Clear`() throws {
+        func `clearing removes all members`() throws {
             var set = Bitset()
             try set.insert(1)
             try set.insert(2)
@@ -157,7 +157,7 @@ extension Bitset {
         }
 
         @Test
-        func `Init from sequence`() throws {
+        func `sequence initialization retains its members`() throws {
             let set = try Bitset([1, 2, 3, 64, 65, 66])
 
             #expect(set.count == 6)
@@ -170,13 +170,13 @@ extension Bitset {
         }
 
         @Test
-        func `Init with duplicates`() throws {
+        func `sequence initialization collapses duplicate members`() throws {
             let set = try Bitset([1, 2, 1, 3, 2, 1])
             #expect(set.count == 3)
         }
 
         @Test
-        func `Iteration order`() throws {
+        func `iteration visits members in ascending order`() throws {
             var set = Bitset()
             try set.insert(100)
             try set.insert(10)
@@ -189,7 +189,7 @@ extension Bitset {
         }
 
         @Test
-        func `Iteration across word boundaries`() throws {
+        func `iteration visits members across storage words`() throws {
             var set = Bitset()
             try set.insert(0)
             try set.insert(63)
@@ -203,7 +203,7 @@ extension Bitset {
         }
 
         @Test
-        func `Union`() throws {
+        func `union retains members present in either operand`() throws {
             let a = try Bitset([1, 2, 3])
             let b = try Bitset([3, 4, 5])
 
@@ -218,7 +218,7 @@ extension Bitset {
         }
 
         @Test
-        func `Intersection`() throws {
+        func `intersection retains members present in both operands`() throws {
             let a = try Bitset([1, 2, 3, 4])
             let b = try Bitset([3, 4, 5, 6])
 
@@ -232,7 +232,7 @@ extension Bitset {
         }
 
         @Test
-        func `Subtracting`() throws {
+        func `subtraction removes members present in the other operand`() throws {
             let a = try Bitset([1, 2, 3, 4, 5])
             let b = try Bitset([2, 4])
 
@@ -247,7 +247,7 @@ extension Bitset {
         }
 
         @Test
-        func `Symmetric difference`() throws {
+        func `symmetric difference retains members present in exactly one operand`() throws {
             let a = try Bitset([1, 2, 3])
             let b = try Bitset([2, 3, 4])
 
@@ -261,7 +261,7 @@ extension Bitset {
         }
 
         @Test
-        func `Union across word boundaries`() throws {
+        func `union preserves members across storage words`() throws {
             let a = try Bitset([0, 63])
             let b = try Bitset([64, 127])
 
@@ -275,7 +275,7 @@ extension Bitset {
         }
 
         @Test
-        func `Form union`() throws {
+        func `forming a union replaces membership with the union`() throws {
             var a = try Bitset([1, 2, 3])
             let b = try Bitset([3, 4, 5])
 
@@ -287,7 +287,7 @@ extension Bitset {
         }
 
         @Test
-        func `isSubset`() throws {
+        func `subset checks whether every member belongs to the other set`() throws {
             let small = try Bitset([1, 2, 3])
             let large = try Bitset([1, 2, 3, 4, 5])
             let disjoint = try Bitset([10, 11, 12])
@@ -299,7 +299,7 @@ extension Bitset {
         }
 
         @Test
-        func `isSuperset`() throws {
+        func `superset checks whether every other member belongs to the set`() throws {
             let small = try Bitset([1, 2, 3])
             let large = try Bitset([1, 2, 3, 4, 5])
 
@@ -309,7 +309,7 @@ extension Bitset {
         }
 
         @Test
-        func `isDisjoint`() throws {
+        func `disjointness checks whether sets share any member`() throws {
             let a = try Bitset([1, 2, 3])
             let b = try Bitset([4, 5, 6])
             let c = try Bitset([3, 4, 5])
@@ -319,7 +319,7 @@ extension Bitset {
         }
 
         @Test
-        func `Equality`() throws {
+        func `equality compares set membership`() throws {
             let a = try Bitset([1, 2, 3])
             let b = try Bitset([1, 2, 3])
             let c = try Bitset([1, 2, 4])
@@ -329,14 +329,14 @@ extension Bitset {
         }
 
         @Test
-        func `Empty sets equal`() {
+        func `empty sets compare equal`() {
             let a = Bitset()
             let b = Bitset()
             #expect(a == b)
         }
 
         @Test
-        func `Equal membership with different capacities compares equal`() throws {
+        func `equal members compare equal across different capacities`() throws {
             var a = try Bitset(capacity: 8)
             var b = try Bitset(capacity: 1000)
             try a.insert(1)
@@ -349,7 +349,7 @@ extension Bitset {
         }
 
         @Test
-        func `Equal membership with different growth histories compares equal`() throws {
+        func `equal members compare equal across different growth histories`() throws {
             var a = Bitset()
             try a.insert(3)
             try a.insert(200)
@@ -364,7 +364,7 @@ extension Bitset {
         }
 
         @Test
-        func `Empty sets with different capacities compare equal`() throws {
+        func `empty sets compare equal across different capacities`() throws {
             var a = Bitset()
             try a.insert(500)
             try a.remove(500)
@@ -380,7 +380,7 @@ extension Bitset {
         }
 
         @Test
-        func `Different membership beyond common storage compares unequal`() throws {
+        func `members beyond shared storage make sets unequal`() throws {
             var a = Bitset()
             try a.insert(1)
 
@@ -393,7 +393,7 @@ extension Bitset {
         }
 
         @Test
-        func `Description`() throws {
+        func `descriptions list members in ascending order`() throws {
             let set = try Bitset([1, 2, 3])
             let desc = set.description
             #expect(desc.contains("Bitset"))

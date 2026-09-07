@@ -7,11 +7,11 @@ extension Bitset {
         public let capacity: Int
 
         @inlinable
-        public init(capacity: Int) throws(__BitsetFixedError) {
+        public init(capacity: Int) throws(Bitset.Fixed.Error) {
             guard capacity >= 0 else {
                 throw .invalidCapacity(.init())
             }
-            let wordCount = (capacity + Self.bitsPerWord - 1) / Self.bitsPerWord
+            let wordCount = Bitset.storageWordCount(for: capacity)
             self.storage = ContiguousArray(repeating: 0, count: wordCount)
             self.capacity = capacity
         }
@@ -65,7 +65,7 @@ extension Bitset.Fixed {
 
     @inlinable
     @discardableResult
-    public mutating func insert(_ member: Int) throws(__BitsetFixedError) -> Bool {
+    public mutating func insert(_ member: Int) throws(Bitset.Fixed.Error) -> Bool {
         guard member >= 0 && member < capacity else {
             if member >= capacity {
                 throw .overflow(.init())
@@ -82,7 +82,7 @@ extension Bitset.Fixed {
 
     @inlinable
     @discardableResult
-    public mutating func remove(_ member: Int) throws(__BitsetFixedError) -> Bool {
+    public mutating func remove(_ member: Int) throws(Bitset.Fixed.Error) -> Bool {
         guard member >= 0 && member < capacity else {
             throw .bounds(.init(member: member, capacity: capacity))
         }

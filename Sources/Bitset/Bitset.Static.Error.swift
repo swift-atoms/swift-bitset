@@ -1,11 +1,13 @@
-public enum __BitsetStaticError: Swift.Error, Sendable, Equatable {
+extension Bitset.Static {
+    public enum Error: Swift.Error, Sendable, Equatable {
 
-    case bounds(Bounds)
+        case bounds(Bounds)
 
-    case overflow(Overflow)
+        case overflow(Overflow)
+    }
 }
 
-extension __BitsetStaticError {
+extension Bitset.Static.Error {
 
     public struct Bounds: Sendable, Equatable {
 
@@ -25,9 +27,4 @@ extension __BitsetStaticError {
         @inlinable
         public init() {}
     }
-}
-
-extension Bitset.Static {
-
-    public typealias Error = __BitsetStaticError
 }

@@ -5,13 +5,19 @@ extension Bitset {
         static var bitsPerWord: Int { UInt.bitWidth }
 
         @inlinable
-        public static var capacity: Int { wordCount * bitsPerWord }
+        public static var capacity: Int {
+            guard let capacity = Bitset.bitCapacity(forWordCount: wordCount) else {
+                preconditionFailure("Word count must have a nonnegative representable bit capacity")
+            }
+            return capacity
+        }
 
         @usableFromInline
         var storage: InlineArray<wordCount, UInt>
 
         @inlinable
         public init() {
+            _ = Self.capacity
             self.storage = InlineArray(repeating: 0)
         }
 
@@ -61,7 +67,7 @@ extension Bitset.Static {
 
     @inlinable
     @discardableResult
-    public mutating func insert(_ member: Int) throws(__BitsetStaticError) -> Bool {
+    public mutating func insert(_ member: Int) throws(Bitset.Static<wordCount>.Error) -> Bool {
         guard member >= 0 && member < Self.capacity else {
             if member >= Self.capacity {
                 throw .overflow(.init())
@@ -78,7 +84,7 @@ extension Bitset.Static {
 
     @inlinable
     @discardableResult
-    public mutating func remove(_ member: Int) throws(__BitsetStaticError) -> Bool {
+    public mutating func remove(_ member: Int) throws(Bitset.Static<wordCount>.Error) -> Bool {
         guard member >= 0 && member < Self.capacity else {
             throw .bounds(.init(member: member, capacity: Self.capacity))
         }

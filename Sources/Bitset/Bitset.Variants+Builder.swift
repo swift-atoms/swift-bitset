@@ -2,7 +2,7 @@ extension Bitset.Static {
 
     public init(
         @Bitset.Builder _ builder: () -> [Int]
-    ) throws(__BitsetStaticError) {
+    ) throws(Bitset.Static<wordCount>.Error) {
         let members = builder()
         self.init()
         for m in members {
@@ -16,7 +16,7 @@ extension Bitset.Fixed {
     public init(
         capacity: Int,
         @Bitset.Builder _ builder: () -> [Int]
-    ) throws(__BitsetFixedError) {
+    ) throws(Bitset.Fixed.Error) {
         var fixed = try Bitset.Fixed(capacity: capacity)
         let members = builder()
         for m in members {
