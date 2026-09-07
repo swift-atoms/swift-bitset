@@ -174,37 +174,3 @@ extension Bitset {
         }
     }
 }
-
-extension Bitset: Equatable {
-
-    @inlinable
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        let common = Swift.min(lhs.storage.count, rhs.storage.count)
-        return !zip(lhs.storage, rhs.storage).contains(where: { $0.0 != $0.1 })
-            && !lhs.storage.dropFirst(common).contains(where: { $0 != 0 })
-            && !rhs.storage.dropFirst(common).contains(where: { $0 != 0 })
-    }
-}
-
-extension Bitset: Hashable {
-
-    @inlinable
-    public func hash(into hasher: inout Hasher) {
-        var significant = storage.count
-        while significant > 0 && storage[significant - 1] == 0 {
-            significant -= 1
-        }
-        storage.prefix(significant).forEach { word in
-            hasher.combine(word)
-        }
-    }
-}
-
-extension Bitset: CustomStringConvertible {
-
-    public var description: String {
-        let elements = Array(self.prefix(10))
-        let suffix = count > 10 ? ", ..." : ""
-        return "Bitset({\(elements.map(String.init).joined(separator: ", "))\(suffix)})"
-    }
-}

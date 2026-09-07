@@ -118,20 +118,3 @@ extension Bitset.Fixed {
         }
     }
 }
-
-extension Bitset.Fixed: Equatable {
-
-    @inlinable
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.capacity == rhs.capacity && lhs.storage == rhs.storage
-    }
-}
-
-extension Bitset.Fixed: Hashable {
-
-    @inlinable
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(capacity)
-        hasher.combine(storage)
-    }
-}

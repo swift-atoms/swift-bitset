@@ -113,24 +113,3 @@ extension Bitset.Static {
         }
     }
 }
-
-extension Bitset.Static: Equatable {
-
-    @inlinable
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        for i in 0..<wordCount {
-            if lhs.storage[i] != rhs.storage[i] { return false }
-        }
-        return true
-    }
-}
-
-extension Bitset.Static: Hashable {
-
-    @inlinable
-    public func hash(into hasher: inout Hasher) {
-        (0..<wordCount).forEach { i in
-            hasher.combine(storage[i])
-        }
-    }
-}

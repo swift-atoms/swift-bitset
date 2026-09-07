@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .library(name: "Bitset", targets: ["Bitset"]),
-        .library(name: "Bitset Standard Library Integration", targets: ["Bitset Standard Library Integration"]),
-        .library(name: "Bitset Foundation Library Integration", targets: ["Bitset Foundation Library Integration"]),
+
+        .library(name: "Bitset Foundation Integration", targets: ["Bitset Foundation Integration"]),
         .library(name: "Bitset Test Support", targets: ["Bitset Test Support"]),
     ],
     dependencies: [
@@ -35,20 +35,13 @@ let package = Package(
             ],
             path: "Sources/Bitset"
         ),
+        
         .target(
-            name: "Bitset Standard Library Integration",
+            name: "Bitset Foundation Integration",
             dependencies: [
                 .target(name: "Bitset"),
             ],
-            path: "Sources/Bitset Standard Library Integration"
-        ),
-        .target(
-            name: "Bitset Foundation Library Integration",
-            dependencies: [
-                .target(name: "Bitset"),
-                .target(name: "Bitset Standard Library Integration"),
-            ],
-            path: "Sources/Bitset Foundation Library Integration"
+            path: "Sources/Bitset Foundation Integration"
         ),
         .target(
             name: "Bitset Test Support",
@@ -63,8 +56,7 @@ let package = Package(
             dependencies: [
                 .target(name: "Bitset"),
                 .target(name: "Bitset Test Support"),
-                .target(name: "Bitset Standard Library Integration"),
-                .target(name: "Bitset Foundation Library Integration"),
+                .target(name: "Bitset Foundation Integration"),
             ],
             path: "Tests/Bitset Tests"
         ),
