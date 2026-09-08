@@ -1,4 +1,4 @@
-public import Iterator
+import Iterator
 
 extension Bitset.Iterator {
 

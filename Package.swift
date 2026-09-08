@@ -13,7 +13,6 @@ let package = Package(
     ],
     products: [
         .library(name: "Bitset", targets: ["Bitset"]),
-
         .library(name: "Bitset Foundation Integration", targets: ["Bitset Foundation Integration"]),
         .library(name: "Bitset Test Support", targets: ["Bitset Test Support"]),
     ],
