@@ -53,6 +53,7 @@ let package = Package(
         .testTarget(
             name: "Bitset Tests",
             dependencies: [
+                .product(name: "Iterator", package: "swift-iterator"),
                 .target(name: "Bitset"),
                 .target(name: "Bitset Test Support"),
                 .target(name: "Bitset Foundation Integration"),
