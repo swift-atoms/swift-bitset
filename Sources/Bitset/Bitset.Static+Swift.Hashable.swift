@@ -1,4 +1,4 @@
-extension Bitset.Static: Swift.Hashable {
+extension Bitset.Static: Swift::Hashable {
 
     @inlinable
     public func hash(into hasher: inout Hasher) {

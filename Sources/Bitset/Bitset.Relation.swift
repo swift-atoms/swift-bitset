@@ -44,7 +44,7 @@ extension Bitset.Relation {
 
     @inlinable
     public func isDisjoint(with other: Bitset) -> Bool {
-        let minWords = Swift.min(storage.count, other.storage.count)
+        let minWords = Swift::min(storage.count, other.storage.count)
         for i in 0..<minWords {
             if (storage[i] & other.storage[i]) != 0 {
                 return false

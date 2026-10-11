@@ -2,17 +2,6 @@ extension Bitset {
 
     public struct Static<let wordCount: Int>: Sendable {
         @usableFromInline
-        static var bitsPerWord: Int { UInt.bitWidth }
-
-        @inlinable
-        public static var capacity: Int {
-            guard let capacity = Bitset.bitCapacity(forWordCount: wordCount) else {
-                preconditionFailure("Word count must have a nonnegative representable bit capacity")
-            }
-            return capacity
-        }
-
-        @usableFromInline
         var storage: InlineArray<wordCount, UInt>
 
         @inlinable
@@ -25,6 +14,19 @@ extension Bitset {
         init(__storage: InlineArray<wordCount, UInt>) {
             self.storage = __storage
         }
+    }
+}
+
+extension Bitset.Static {
+    @usableFromInline
+    static var bitsPerWord: Int { UInt.bitWidth }
+
+    @inlinable
+    public static var capacity: Int {
+        guard let capacity = Bitset.bitCapacity(forWordCount: wordCount) else {
+            preconditionFailure("Word count must have a nonnegative representable bit capacity")
+        }
+        return capacity
     }
 }
 

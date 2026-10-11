@@ -1,4 +1,4 @@
-extension Bitset: Swift.CustomStringConvertible {
+extension Bitset: Swift::CustomStringConvertible {
 
     public var description: String {
         let elements = Array(self.prefix(10))

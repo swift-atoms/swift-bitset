@@ -1,4 +1,4 @@
-extension Bitset.Static: Swift.Equatable {
+extension Bitset.Static: Swift::Equatable {
 
     @inlinable
     public static func == (lhs: Self, rhs: Self) -> Bool {

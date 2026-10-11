@@ -180,7 +180,7 @@ extension Bitset {
 extension Bitset {
 
     @inlinable
-    public init<S: Swift.Sequence>(_ members: S) throws(Bitset.Error) where S.Element == Int {
+    public init<S: Swift::Sequence>(_ members: S) throws(Bitset.Error) where S.Element == Int {
         self.init()
         for member in members {
             try insert(member)

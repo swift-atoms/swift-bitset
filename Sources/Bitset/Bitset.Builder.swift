@@ -14,7 +14,7 @@ extension Bitset {
         }
 
         @inlinable
-        public static func buildExpression<S: Swift.Sequence>(_ expression: S) -> [Int]
+        public static func buildExpression<S: Swift::Sequence>(_ expression: S) -> [Int]
         where S.Element == Int {
             Array(expression)
         }

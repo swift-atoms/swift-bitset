@@ -44,7 +44,7 @@ extension Bitset.Algebra.Symmetric {
             resultCapacity = newCapacity
         }
 
-        let minWords = Swift.min(resultStorage.count, other.storage.count)
+        let minWords = Swift::min(resultStorage.count, other.storage.count)
         (0..<minWords).forEach { i in
             resultStorage[i] ^= other.storage[i]
         }

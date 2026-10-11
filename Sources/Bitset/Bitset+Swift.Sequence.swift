@@ -1,6 +1,6 @@
 public import Iterator
 
-extension Bitset: Swift.Sequence {
+extension Bitset: Swift::Sequence {
 
     public struct Iterator: Iterator::Iterator.`Protocol`, IteratorProtocol, Sendable {
         @usableFromInline

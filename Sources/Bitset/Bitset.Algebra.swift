@@ -52,7 +52,7 @@ extension Bitset.Algebra {
             resultCapacity = newCapacity
         }
 
-        let minWords = Swift.min(resultStorage.count, other.storage.count)
+        let minWords = Swift::min(resultStorage.count, other.storage.count)
         (0..<minWords).forEach { i in
             resultStorage[i] |= other.storage[i]
         }
@@ -64,7 +64,7 @@ extension Bitset.Algebra {
     public func intersection(_ other: Bitset) -> Bitset {
         var resultStorage = storage
 
-        let minWords = Swift.min(resultStorage.count, other.storage.count)
+        let minWords = Swift::min(resultStorage.count, other.storage.count)
         (0..<minWords).forEach { i in
             resultStorage[i] &= other.storage[i]
         }
@@ -79,7 +79,7 @@ extension Bitset.Algebra {
     public func subtract(_ other: Bitset) -> Bitset {
         var resultStorage = storage
 
-        let minWords = Swift.min(resultStorage.count, other.storage.count)
+        let minWords = Swift::min(resultStorage.count, other.storage.count)
         (0..<minWords).forEach { i in
             resultStorage[i] &= ~other.storage[i]
         }

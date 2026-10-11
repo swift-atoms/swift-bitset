@@ -56,7 +56,6 @@ let package = Package(
                 .product(name: "Iterator", package: "swift-iterator"),
                 .target(name: "Bitset"),
                 .target(name: "Bitset Test Support"),
-                .target(name: "Bitset Foundation Integration"),
             ],
             path: "Tests/Bitset Tests"
         ),
@@ -64,7 +63,7 @@ let package = Package(
     swiftLanguageModes: [.v6]
 )
 
-for target in package.targets where ![.system, .binary, .plugin].contains(target.type) {
+for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
     target.swiftSettings = (target.swiftSettings ?? []) + [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
