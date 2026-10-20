@@ -4,8 +4,12 @@ import Testing
 
 @Suite
 struct `Bitset capacities remain representable` {
-    @Test(arguments: [0, 1, 63, 64, 65, 127, 128, 129, Int.max - 64, Int.max - 63, Int.max - 1, Int.max])
-    func `storage rounding gives the smallest whole word extent containing every requested bit`(_ capacity: Int) {
+    @Test(arguments: [
+        0, 1, 63, 64, 65, 127, 128, 129, Int.max - 64, Int.max - 63, Int.max - 1, Int.max,
+    ])
+    func `storage rounding gives the smallest whole word extent containing every requested bit`(
+        _ capacity: Int
+    ) {
         let words = Bitset.storageWordCount(for: capacity)
         let coveredBits = UInt(words) * UInt(UInt.bitWidth)
         #expect(coveredBits >= UInt(capacity))
@@ -76,7 +80,10 @@ struct `Bitset capacities remain representable` {
 
     @Test
     func `fixed failures distinguish overflow from bounds without changing storage`() throws {
-        var bitset = try Bitset.Fixed(capacity: 65) { 0; 64 }
+        var bitset = try Bitset.Fixed(capacity: 65) {
+            0
+            64
+        }
         let original = bitset
         for member in [Int.min, -1, 65, Int.max] {
             do throws(Bitset.Fixed.Error) {
@@ -102,7 +109,10 @@ struct `Bitset capacities remain representable` {
 
     @Test
     func `static failures retain their specialization and leave membership unchanged`() throws {
-        var bitset = try Bitset.Static<2> { 0; 127 }
+        var bitset = try Bitset.Static<2> {
+            0
+            127
+        }
         let original = bitset
         for member in [Int.min, -1, 128, Int.max] {
             do throws(Bitset.Static<2>.Error) {
@@ -135,16 +145,25 @@ struct `Bitset capacities remain representable` {
             _ = try Bitset.Fixed(capacity: -1)
         }
         #expect(throws: Bitset.Error.bounds(.init(member: Int.max, capacity: 2))) {
-            _ = try Bitset { 1; Int.max }
+            _ = try Bitset {
+                1
+                Int.max
+            }
         }
         #expect(throws: Bitset.Error.bounds(.init(member: -1, capacity: 2))) {
             _ = try Bitset([1, -1])
         }
         #expect(throws: Bitset.Fixed.Error.overflow(.init())) {
-            _ = try Bitset.Fixed(capacity: 2) { 1; 2 }
+            _ = try Bitset.Fixed(capacity: 2) {
+                1
+                2
+            }
         }
         #expect(throws: Bitset.Static<1>.Error.overflow(.init())) {
-            _ = try Bitset.Static<1> { 1; 64 }
+            _ = try Bitset.Static<1> {
+                1
+                64
+            }
         }
         let dynamic: any Error = Bitset.Error.bounds(.init(member: 1, capacity: 0))
         let fixed: any Error = Bitset.Fixed.Error.bounds(.init(member: 1, capacity: 0))
