@@ -20,7 +20,9 @@ import Testing
     @Suite struct `No static bitset builder integration behavior cases are defined` {}
 }
 
-extension Bitset.Fixed {
+enum `Bitset.Fixed Tests` {}
+
+extension `Bitset.Fixed Tests` {
     @Suite
     struct `Fixed bitset builders enforce their capacity boundary` {
         @Test

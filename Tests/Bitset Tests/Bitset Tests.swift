@@ -2,7 +2,9 @@ import Testing
 
 @testable import Bitset
 
-extension Bitset {
+enum `Bitset Tests` {}
+
+extension `Bitset Tests` {
     @Suite
     struct `Bitsets preserve membership through mutation iteration and set operations` {
 

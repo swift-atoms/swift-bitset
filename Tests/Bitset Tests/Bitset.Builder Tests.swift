@@ -2,7 +2,9 @@ import Testing
 
 @testable import Bitset
 
-extension Bitset.Builder {
+enum `Bitset.Builder Tests` {}
+
+extension `Bitset.Builder Tests` {
     @Suite
     struct `Bitset builders combine expressions into distinct members` {
         @Suite struct `Bitset builders preserve optional conditional and repeated expressions` {}
@@ -12,7 +14,7 @@ extension Bitset.Builder {
     }
 }
 
-extension Bitset.Builder.`Bitset builders combine expressions into distinct members` {
+extension `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members` {
     fileprivate static func collected(_ bitset: Bitset) -> [Int] {
         var result: [Int] = []
         (0..<bitset.capacity).forEach { i in
@@ -24,7 +26,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
     }
 }
 
-extension Bitset.Builder.`Bitset builders combine expressions into distinct members`
+extension `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`
     .`Bitset builders preserve optional conditional and repeated expressions`
 {
 
@@ -43,7 +45,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
             10
         }
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [1, 5, 10]
         )
@@ -59,7 +61,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
             5
         }
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [1, 5]
         )
@@ -91,7 +93,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
             10
         }
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [1, 7, 10]
         )
@@ -110,7 +112,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
     }
 }
 
-extension Bitset.Builder.`Bitset builders combine expressions into distinct members`
+extension `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`
     .`Bitset builders preserve optional conditional and repeated expressions`
 {
 
@@ -125,7 +127,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
             10
         }
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [1, 5, 10]
         )
@@ -142,7 +144,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
             10
         }
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [1, 10]
         )
@@ -154,7 +156,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
             (0..<5).map { $0 * 2 }
         }
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [0, 2, 4, 6, 8]
         )
@@ -168,14 +170,14 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
             }
         }
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [0, 3, 6, 9]
         )
     }
 }
 
-extension Bitset.Builder.`Bitset builders combine expressions into distinct members`
+extension `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`
     .`Bitset builders preserve long and nested membership expressions`
 {
 
@@ -188,7 +190,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
             256
         }
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [0, 64, 128, 256]
         )
@@ -224,14 +226,14 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
             99
         }
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [0, 1, 3, 4, 99]
         )
     }
 }
 
-extension Bitset.Builder.`Bitset builders combine expressions into distinct members`
+extension `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`
     .`Built bitsets support subsequent mutation and membership queries`
 {
 
@@ -243,7 +245,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
         }
         try bitset.insert(3)
         #expect(
-            Bitset.Builder.`Bitset builders combine expressions into distinct members`.collected(
+            `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`.collected(
                 bitset
             ) == [1, 2, 3]
         )
@@ -263,7 +265,7 @@ extension Bitset.Builder.`Bitset builders combine expressions into distinct memb
     }
 }
 
-extension Bitset.Builder.`Bitset builders combine expressions into distinct members`
+extension `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members`
     .`Bitset builder components preserve their contributed members`
 {
 
