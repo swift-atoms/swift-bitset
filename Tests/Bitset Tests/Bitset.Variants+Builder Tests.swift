@@ -2,7 +2,14 @@ import Testing
 
 @testable import Bitset
 
-@Suite struct `Static bitset builders preserve members within their capacity` {
+enum `Bitset.Variants+Builder Tests` {}
+
+extension `Bitset.Variants+Builder Tests` {
+    @Suite struct `Static bitset builders preserve members within their capacity` {
+    }
+}
+
+extension `Bitset.Variants+Builder Tests`.`Static bitset builders preserve members within their capacity` {
     @Suite struct `Static builders construct sets from bounded member expressions` {
         @Test
         func `static builders retain members within their capacity`() throws {
@@ -17,6 +24,7 @@ import Testing
     }
 
     @Suite struct `No static bitset builder boundary cases are defined` {}
+
     @Suite struct `No static bitset builder integration behavior cases are defined` {}
 }
 

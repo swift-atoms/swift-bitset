@@ -7,11 +7,17 @@ enum `Bitset.Builder Tests` {}
 extension `Bitset.Builder Tests` {
     @Suite
     struct `Bitset builders combine expressions into distinct members` {
-        @Suite struct `Bitset builders preserve optional conditional and repeated expressions` {}
-        @Suite struct `Bitset builders preserve long and nested membership expressions` {}
-        @Suite struct `Built bitsets support subsequent mutation and membership queries` {}
-        @Suite struct `Bitset builder components preserve their contributed members` {}
     }
+}
+
+extension `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members` {
+    @Suite struct `Bitset builders preserve optional conditional and repeated expressions` {}
+
+    @Suite struct `Bitset builders preserve long and nested membership expressions` {}
+
+    @Suite struct `Built bitsets support subsequent mutation and membership queries` {}
+
+    @Suite struct `Bitset builder components preserve their contributed members` {}
 }
 
 extension `Bitset.Builder Tests`.`Bitset builders combine expressions into distinct members` {
