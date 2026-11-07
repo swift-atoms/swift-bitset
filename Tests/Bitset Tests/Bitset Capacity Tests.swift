@@ -165,9 +165,9 @@ struct `Bitset capacities remain representable` {
                 64
             }
         }
-        let dynamic: any Error = Bitset.Error.bounds(.init(member: 1, capacity: 0))
-        let fixed: any Error = Bitset.Fixed.Error.bounds(.init(member: 1, capacity: 0))
-        let singleWord: any Error = Bitset.Static<1>.Error.overflow(.init())
+        let dynamic: any Swift.Error = Bitset.Error.bounds(.init(member: 1, capacity: 0))
+        let fixed: any Swift.Error = Bitset.Fixed.Error.bounds(.init(member: 1, capacity: 0))
+        let singleWord: any Swift.Error = Bitset.Static<1>.Error.overflow(.init())
         #expect(!(dynamic is Bitset.Fixed.Error))
         #expect(!(fixed is Bitset.Error))
         #expect(!(singleWord is Bitset.Static<2>.Error))
