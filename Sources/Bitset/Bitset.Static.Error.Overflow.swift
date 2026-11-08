@@ -1,4 +1,3 @@
-
 extension Bitset.Static.Error {
     public struct Overflow: Sendable, Equatable {
 

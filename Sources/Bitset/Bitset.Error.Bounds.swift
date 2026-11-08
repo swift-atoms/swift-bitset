@@ -1,4 +1,3 @@
-
 extension Bitset.Error {
     public struct Bounds: Sendable, Equatable {
 
